@@ -32,6 +32,18 @@ public class Basics {
 	String place_id = js.getString("place_id"); 
 	
 	System.out.println(place_id);
+	
+	//update place API
+	given().log().all().queryParam("Key","qaclick123").header("Content-Type","application/json")
+	.body("{\r\n"
+			+ "\"place_id\":\""+place_id+"\",\r\n"
+			+ "\"address\":\"66 Summer walk, USA\",\r\n"
+			+ "\"key\":\"qaclick123\"\r\n"
+			+ "}") 
+	.when().put("/maps/api/place/update/json")
+	.then().assertThat().log().all().statusCode(200)
+	.body("msg", equalTo("Address successfully updated"));
+	
 	}
 
 }
